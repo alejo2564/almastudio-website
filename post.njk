@@ -1,0 +1,36 @@
+---
+activePage: post
+extraCss: |
+  .post-page { min-height: 100vh; padding: 8rem 2rem 4rem; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; border-top: 1px solid var(--border); }
+  .post-wrap { max-width: 640px; width: 100%; }
+  .post-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--white-dim); text-decoration: none; margin-bottom: 3rem; transition: color 0.2s; }
+  .post-back:hover { color: var(--white); }
+  .post-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: 0.04em; line-height: 1.2; margin-bottom: 1rem; }
+  .post-meta { display: flex; gap: 1.5rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .post-meta span { font-size: 0.62rem; letter-spacing: 0.18em; color: var(--white-muted); }
+  .post-body { font-size: 0.88rem; line-height: 2; color: var(--white-dim); letter-spacing: 0.03em; }
+  .post-body h1, .post-body h2, .post-body h3 { color: var(--white); font-weight: 700; letter-spacing: 0.06em; margin: 2rem 0 0.8rem; }
+  .post-body h2 { font-size: 1.1rem; }
+  .post-body h3 { font-size: 0.95rem; }
+  .post-body p { margin-bottom: 1.2rem; }
+  .post-body a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+  .post-body ul, .post-body ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+  .post-body li { margin-bottom: 0.4rem; }
+  .post-body strong { color: var(--white); font-weight: 700; }
+  .post-body hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .post-body blockquote { border-left: 2px solid var(--border-hover); padding-left: 1.2rem; color: var(--white-dim); margin: 1.5rem 0; }
+---
+{% extends "_includes/base.njk" %}
+{% block content %}
+<div class="post-page">
+  <div class="post-wrap">
+    <a class="post-back" href="/notes/">← back to notes</a>
+    <h1 class="post-title">{{ title }}</h1>
+    <div class="post-meta">
+      <span>{{ date | postDate }}</span>
+      <span>{{ author }}</span>
+    </div>
+    <div class="post-body">{{ content | safe }}</div>
+  </div>
+</div>
+{% endblock %}
