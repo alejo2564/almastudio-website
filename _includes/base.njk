@@ -11,10 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0A0A0A; --white: #F0EEE9; --white-dim: #6A6A6A;
-    --white-muted: #272727; --border: rgba(240,238,233,0.1); --border-hover: rgba(240,238,233,0.25);
-  }
+  :root { --bg: #0A0A0A; --white: #F0EEE9; --white-dim: #6A6A6A; --white-muted: #272727; --border: rgba(240,238,233,0.1); --border-hover: rgba(240,238,233,0.25); }
   html { scroll-behavior: smooth; }
   body { min-height: 100vh; background: var(--bg); color: var(--white); font-family: 'Courier Prime', monospace; font-weight: 400; letter-spacing: 0.02em; overflow-x: hidden; }
   body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(240,238,233,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(240,238,233,0.025) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; z-index: 0; }
@@ -46,19 +43,19 @@
   @keyframes scaleIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 0.15; transform: scaleX(1); } }
   @keyframes scrollLine { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
   @media (max-width: 700px) { nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .hamburger { display: flex; } footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; } .footer-right { gap: 1.5rem; } }
-  {{ extraCss }}
+  {{ extraCss | safe }}
 </style>
 </head>
 <body>
 <nav>
   <a href="/" class="nav-logo">alma studio.</a>
   <ul class="nav-links">
-    <li><a href="/#home" class="{{ 'active' if activePage == 'home' }}">home</a></li>
-    <li><a href="/#apps" class="{{ 'active' if activePage == 'home' }}">apps</a></li>
-    <li><a href="/#about" class="{{ 'active' if activePage == 'home' }}">about</a></li>
-    <li><a href="/notes/" class="{{ 'active' if activePage == 'notes' or activePage == 'post' }}">notes</a></li>
-    <li><a href="/#contact" class="{{ 'active' if activePage == 'home' }}">contact</a></li>
-    <li><a href="/#privacy" class="{{ 'active' if activePage == 'home' }}">privacy</a></li>
+    <li><a href="/#home" {% if activePage == 'home' %}class="active"{% endif %}>home</a></li>
+    <li><a href="/#apps" {% if activePage == 'home' %}class="active"{% endif %}>apps</a></li>
+    <li><a href="/#about" {% if activePage == 'home' %}class="active"{% endif %}>about</a></li>
+    <li><a href="/notes/" {% if activePage == 'notes' or activePage == 'post' %}class="active"{% endif %}>notes</a></li>
+    <li><a href="/#contact" {% if activePage == 'home' %}class="active"{% endif %}>contact</a></li>
+    <li><a href="/#privacy" {% if activePage == 'home' %}class="active"{% endif %}>privacy</a></li>
   </ul>
   <button class="hamburger" aria-label="menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
@@ -71,7 +68,7 @@
   <a href="/#privacy" onclick="closeMenu()">privacy</a>
 </div>
 
-{{ content | safe }}
+{% block content %}{% endblock %}
 
 <footer>
   <span class="footer-text">© 2026 alma studio</span>

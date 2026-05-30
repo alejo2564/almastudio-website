@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>notes — alma studio</title>
+<meta name="description" content="alma studio crafts thoughtful ios apps.">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #0A0A0A; --white: #F0EEE9; --white-dim: #6A6A6A; --white-muted: #272727; --border: rgba(240,238,233,0.1); --border-hover: rgba(240,238,233,0.25); }
+  html { scroll-behavior: smooth; }
+  body { min-height: 100vh; background: var(--bg); color: var(--white); font-family: 'Courier Prime', monospace; font-weight: 400; letter-spacing: 0.02em; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(240,238,233,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(240,238,233,0.025) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; z-index: 0; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem; border-bottom: 1px solid var(--border); background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); }
+  .nav-logo { font-family: 'Courier Prime', monospace; font-size: 1rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--white-dim); text-decoration: none; transition: color 0.2s; position: relative; padding-bottom: 2px; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--white); transition: width 0.3s ease; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-links a.active { color: var(--white); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--white); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 65px; left: 0; right: 0; background: rgba(10,10,10,0.97); border-bottom: 1px solid var(--border); padding: 2rem 3rem; z-index: 99; flex-direction: column; gap: 1.5rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 0.8rem; letter-spacing: 0.2em; color: var(--white-dim); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--white); }
+  footer { position: relative; z-index: 10; padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .footer-text { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--white-muted); }
+  .footer-right { display: flex; gap: 2rem; }
+  .footer-link { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--white-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--white); }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 0.15; transform: scaleX(1); } }
+  @keyframes scrollLine { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
+  @media (max-width: 700px) { nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .hamburger { display: flex; } footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; } .footer-right { gap: 1.5rem; } }
+  .notes-page { min-height: 100vh; padding: 8rem 2rem 4rem; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.notes-wrap { max-width: 680px; width: 100%; }
+.notes-header { text-align: center; margin-bottom: 4rem; }
+.section-eyebrow { font-size: 0.62rem; letter-spacing: 0.3em; color: var(--white-dim); margin-bottom: 1rem; }
+.section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; margin-bottom: 1rem; letter-spacing: 0.05em; }
+.section-subtitle { font-size: 0.82rem; color: var(--white-dim); letter-spacing: 0.06em; }
+.post-list { display: flex; flex-direction: column; }
+.post-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; padding: 1.6rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--white); transition: all 0.2s; }
+.post-item:first-child { border-top: 1px solid var(--border); }
+.post-item:hover { padding-left: 0.5rem; }
+.post-item-left { flex: 1; }
+.post-item-title { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+.post-item-excerpt { font-size: 0.75rem; line-height: 1.7; color: var(--white-dim); letter-spacing: 0.03em; }
+.post-item-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; flex-shrink: 0; }
+.post-item-date { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--white-muted); white-space: nowrap; }
+.post-item-author { font-size: 0.6rem; letter-spacing: 0.12em; color: var(--white-muted); }
+.post-arrow { font-size: 0.7rem; color: var(--white-muted); transition: transform 0.2s, color 0.2s; }
+.post-item:hover .post-arrow { transform: translateX(4px); color: var(--white); }
+.notes-empty { text-align: center; padding: 4rem 0; }
+.notes-empty p { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--white-muted); }
+@media (max-width: 700px) { .post-item { flex-direction: column; gap: 0.5rem; } .post-item-meta { flex-direction: row; } }
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">alma studio.</a>
+  <ul class="nav-links">
+    <li><a href="/#home" >home</a></li>
+    <li><a href="/#apps" >apps</a></li>
+    <li><a href="/#about" >about</a></li>
+    <li><a href="/notes/" class="active">notes</a></li>
+    <li><a href="/#contact" >contact</a></li>
+    <li><a href="/#privacy" >privacy</a></li>
+  </ul>
+  <button class="hamburger" aria-label="menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#home" onclick="closeMenu()">home</a>
+  <a href="/#apps" onclick="closeMenu()">apps</a>
+  <a href="/#about" onclick="closeMenu()">about</a>
+  <a href="/notes/" onclick="closeMenu()">notes</a>
+  <a href="/#contact" onclick="closeMenu()">contact</a>
+  <a href="/#privacy" onclick="closeMenu()">privacy</a>
+</div>
+
+
+<div class="notes-page">
+  <div class="notes-wrap">
+    <div class="notes-header">
+      <p class="section-eyebrow">from the studio</p>
+      <h1 class="section-title">notes.</h1>
+      <p class="section-subtitle">thoughts, progress, and things we're figuring out.</p>
+    </div>
+    
+    
+    <div class="post-list">
+      
+      <a class="post-item" href="/notes/welcome-to-alma-studio/">
+        <div class="post-item-left">
+          <p class="post-item-title">welcome to alma studio.</p>
+          <p class="post-item-excerpt">two bankers, one studio, and a sudoku app. here&#39;s how alma studio came to be.</p>
+        </div>
+        <div class="post-item-meta">
+          <span class="post-item-date">May 29, 2026</span>
+          <span class="post-item-author">alejandro &amp; maria</span>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+      
+    </div>
+    
+  </div>
+</div>
+
+
+<footer>
+  <span class="footer-text">© 2026 alma studio</span>
+  <div class="footer-right">
+    <a href="/notes/" class="footer-link">notes</a>
+    <a href="/#contact" class="footer-link">contact</a>
+    <a href="/#privacy" class="footer-link">privacy</a>
+  </div>
+</footer>
+<script>
+function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); document.querySelector('.hamburger').classList.toggle('open'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.querySelector('.hamburger').classList.remove('open'); }
+const observer = new IntersectionObserver((entries) => { entries.forEach((entry, i) => { if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); } }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+if (window.netlifyIdentity) { window.netlifyIdentity.on("init", user => { if (!user) { window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; }); } }); }
+</script>
+</body>
+</html>

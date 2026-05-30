@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>welcome to alma studio.</title>
+<meta name="description" content="alma studio crafts thoughtful ios apps.">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg: #0A0A0A; --white: #F0EEE9; --white-dim: #6A6A6A; --white-muted: #272727; --border: rgba(240,238,233,0.1); --border-hover: rgba(240,238,233,0.25); }
+  html { scroll-behavior: smooth; }
+  body { min-height: 100vh; background: var(--bg); color: var(--white); font-family: 'Courier Prime', monospace; font-weight: 400; letter-spacing: 0.02em; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(240,238,233,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(240,238,233,0.025) 1px, transparent 1px); background-size: 80px 80px; pointer-events: none; z-index: 0; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem; border-bottom: 1px solid var(--border); background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); }
+  .nav-logo { font-family: 'Courier Prime', monospace; font-size: 1rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.68rem; letter-spacing: 0.2em; color: var(--white-dim); text-decoration: none; transition: color 0.2s; position: relative; padding-bottom: 2px; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--white); transition: width 0.3s ease; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-links a.active { color: var(--white); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 1px; background: var(--white); transition: all 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 65px; left: 0; right: 0; background: rgba(10,10,10,0.97); border-bottom: 1px solid var(--border); padding: 2rem 3rem; z-index: 99; flex-direction: column; gap: 1.5rem; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 0.8rem; letter-spacing: 0.2em; color: var(--white-dim); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--white); }
+  footer { position: relative; z-index: 10; padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .footer-text { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--white-muted); }
+  .footer-right { display: flex; gap: 2rem; }
+  .footer-link { font-size: 0.62rem; letter-spacing: 0.15em; color: var(--white-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--white); }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 0.15; transform: scaleX(1); } }
+  @keyframes scrollLine { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
+  @media (max-width: 700px) { nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .hamburger { display: flex; } footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; } .footer-right { gap: 1.5rem; } }
+  .post-page { min-height: 100vh; padding: 8rem 2rem 4rem; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; border-top: 1px solid var(--border); }
+.post-wrap { max-width: 640px; width: 100%; }
+.post-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--white-dim); text-decoration: none; margin-bottom: 3rem; transition: color 0.2s; }
+.post-back:hover { color: var(--white); }
+.post-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: 0.04em; line-height: 1.2; margin-bottom: 1rem; }
+.post-meta { display: flex; gap: 1.5rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.post-meta span { font-size: 0.62rem; letter-spacing: 0.18em; color: var(--white-muted); }
+.post-body { font-size: 0.88rem; line-height: 2; color: var(--white-dim); letter-spacing: 0.03em; }
+.post-body h1, .post-body h2, .post-body h3 { color: var(--white); font-weight: 700; letter-spacing: 0.06em; margin: 2rem 0 0.8rem; }
+.post-body h2 { font-size: 1.1rem; }
+.post-body h3 { font-size: 0.95rem; }
+.post-body p { margin-bottom: 1.2rem; }
+.post-body a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; }
+.post-body ul, .post-body ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+.post-body li { margin-bottom: 0.4rem; }
+.post-body strong { color: var(--white); font-weight: 700; }
+.post-body hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+.post-body blockquote { border-left: 2px solid var(--border-hover); padding-left: 1.2rem; color: var(--white-dim); margin: 1.5rem 0; }
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">alma studio.</a>
+  <ul class="nav-links">
+    <li><a href="/#home" >home</a></li>
+    <li><a href="/#apps" >apps</a></li>
+    <li><a href="/#about" >about</a></li>
+    <li><a href="/notes/" class="active">notes</a></li>
+    <li><a href="/#contact" >contact</a></li>
+    <li><a href="/#privacy" >privacy</a></li>
+  </ul>
+  <button class="hamburger" aria-label="menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#home" onclick="closeMenu()">home</a>
+  <a href="/#apps" onclick="closeMenu()">apps</a>
+  <a href="/#about" onclick="closeMenu()">about</a>
+  <a href="/notes/" onclick="closeMenu()">notes</a>
+  <a href="/#contact" onclick="closeMenu()">contact</a>
+  <a href="/#privacy" onclick="closeMenu()">privacy</a>
+</div>
+
+
+<div class="post-page">
+  <div class="post-wrap">
+    <a class="post-back" href="/notes/">← back to notes</a>
+    <h1 class="post-title">welcome to alma studio.</h1>
+    <div class="post-meta">
+      <span>May 29, 2026</span>
+      <span>alejandro &amp; maria</span>
+    </div>
+    <div class="post-body"><p>we built this site in a single evening.</p>
+<p>not because we had to move fast, but because we've spent enough time in finance watching decisions get workshopped into irrelevance. so when we decided to start building apps together, we made a rule: ship first, polish later.</p>
+<h2>why apps?</h2>
+<p>we're both investment bankers based in new york. we spend our days in spreadsheets, decks, and deal rooms. somewhere along the way we got interested in AI — not the hype, but the actual tools. the stuff that lets two people with no traditional engineering background build real software.</p>
+<p>alma studio is the result of that curiosity.</p>
+<h2>what we're building</h2>
+<p>our first app is <strong>sudoku battle</strong> — a multiplayer sudoku game where you challenge friends to solve the same puzzle in real time. we play sudoku. we thought it should be competitive. so we're making it competitive.</p>
+<p>more apps will follow. we have a list.</p>
+<h2>why &quot;alma&quot;?</h2>
+<p>alma means soul in spanish. our initials are al and ma. it felt right.</p>
+<h2>what's next</h2>
+<ul>
+<li>finishing the LLC paperwork</li>
+<li>submitting sudoku battle to the app store</li>
+<li>writing more of these notes</li>
+</ul>
+<p>thanks for being here early.</p>
+<p>— alejandro &amp; maria</p>
+</div>
+  </div>
+</div>
+
+
+<footer>
+  <span class="footer-text">© 2026 alma studio</span>
+  <div class="footer-right">
+    <a href="/notes/" class="footer-link">notes</a>
+    <a href="/#contact" class="footer-link">contact</a>
+    <a href="/#privacy" class="footer-link">privacy</a>
+  </div>
+</footer>
+<script>
+function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); document.querySelector('.hamburger').classList.toggle('open'); }
+function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.querySelector('.hamburger').classList.remove('open'); }
+const observer = new IntersectionObserver((entries) => { entries.forEach((entry, i) => { if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); } }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+if (window.netlifyIdentity) { window.netlifyIdentity.on("init", user => { if (!user) { window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; }); } }); }
+</script>
+</body>
+</html>
