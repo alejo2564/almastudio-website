@@ -7,6 +7,8 @@ module.exports = function(eleventyConfig) {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
   });
 
+  eleventyConfig.addFilter("limit", (arr, n) => arr.slice(0, n));
+
   return {
     dir: {
       input: ".",
